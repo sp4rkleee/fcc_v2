@@ -195,6 +195,12 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
 
+        .advance-week-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .match-actions {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -391,18 +397,107 @@
             background: rgba(76, 175, 80, 0.3);
             border: 1px solid #4CAF50;
         }
+
+        .character-creation {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        .origin-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .origin-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .origin-option.selected {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+        }
+
+        .name-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 12px;
+            color: white;
+            font-size: 16px;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .name-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .confirm-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 10px 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- Экран создания персонажа -->
+        <div id="creationScreen">
+            <div class="character-creation">
+                <h1 style="margin-bottom: 20px;">⚽ PRO: Путь Легенды</h1>
+                <p style="margin-bottom: 20px; opacity: 0.8;">Создайте своего футболиста и начните путь к славе!</p>
+                
+                <div id="nameInputSection" class="hidden">
+                    <input type="text" id="playerNameInput" class="name-input" placeholder="Введите имя футболиста" maxlength="20">
+                    <button class="confirm-button" onclick="confirmName()">Подтвердить</button>
+                    <button class="confirm-button" onclick="showOriginSelection()">Назад</button>
+                </div>
+
+                <div id="originSelectionSection">
+                    <h3 style="margin-bottom: 15px;">Выберите происхождение:</h3>
+                    <div class="origin-option" onclick="selectOrigin('premier')">
+                        <div style="font-weight: 600;">🇬🇧 Академия Премьер-Лиги</div>
+                        <div style="font-size: 12px; opacity: 0.8;">Хорошие условия, высокая конкуренция</div>
+                    </div>
+                    <div class="origin-option" onclick="selectOrigin('us')">
+                        <div style="font-weight: 600;">🇺🇸 Студенческая команда США</div>
+                        <div style="font-size: 12px; opacity: 0.8;">Неизвестность, пробивайтесь через скаутов</div>
+                    </div>
+                    <div class="origin-option" onclick="selectOrigin('brazil')">
+                        <div style="font-weight: 600;">🇧🇷 Уличный футбол Бразилии</div>
+                        <div style="font-size: 12px; opacity: 0.8;">Максимум техники, минимум тактики</div>
+                    </div>
+                    <div class="origin-option" onclick="selectOrigin('europe')">
+                        <div style="font-weight: 600;">🇪🇺 Молодёжная команда Европы</div>
+                        <div style="font-size: 12px; opacity: 0.8;">Меньше давления, больше игрового времени</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Главное меню -->
-        <div id="mainMenu">
+        <div id="mainMenu" class="hidden">
             <div class="status-bar">
                 <div class="week-info">Неделя: <span id="currentWeek">1</span> | Сезон: <span id="currentSeason">2024</span></div>
                 <div class="auto-save">Автосохранение: ● Активно</div>
             </div>
 
-            <button class="advance-week-btn" onclick="advanceWeek()">
+            <button class="advance-week-btn" id="advanceWeekBtn" onclick="advanceWeek()">
                 ⏭️ Перейти на следующую неделю
             </button>
 
@@ -713,29 +808,68 @@
         tg.expand();
         tg.enableClosingConfirmation();
 
-        // Расширенное состояние игры
+        // База данных травм
+        const INJURY_DATABASE = {
+            "light": [
+                {"name": "Растяжение связок голеностопа", "days": 14},
+                {"name": "Ушиб мышцы бедра", "days": 7},
+                {"name": "Сотрясение мозга", "days": 10},
+                {"name": "Растяжение паховых связок", "days": 21}
+            ],
+            "medium": [
+                {"name": "Разрыв мениска", "days": 90},
+                {"name": "Растяжение подколенного сухожилия", "days": 45},
+                {"name": "Стресс-перелом плюсневой кости", "days": 60},
+                {"name": "Разрыв связок колена", "days": 75}
+            ],
+            "severe": [
+                {"name": "Разрыв передней крестообразной связки", "days": 270},
+                {"name": "Разрыв ахиллова сухожилия", "days": 210},
+                {"name": "Сложный перелом лодыжки", "days": 180},
+                {"name": "Разрыв задней крестообразной связки", "days": 240}
+            ]
+        };
+
+        // Товары магазина
+        const SHOP_ITEMS = [
+            {id: 1, name: "Бутсы премиум", price: 50000, effect: "+2 к технике"},
+            {id: 2, name: "Тренировочный костюм", price: 25000, effect: "+1 к морали"},
+            {id: 3, name: "Протеиновые добавки", price: 15000, effect: "+5 энергии"},
+            {id: 4, name: "Частный тренер", price: 100000, effect: "+3 к физике"},
+            {id: 5, name: "Психолог", price: 75000, effect: "+5 к менталитету"},
+            {id: 6, name: "Массажное кресло", price: 50000, effect: "+10 к восстановлению"}
+        ];
+
+        // Состояние игры
         let gameState = {
             week: 1,
             season: 2024,
             day: 2,
             dailyRestUsed: false,
             player: {
-                name: "Алексей Петров",
-                age: 19,
-                club: "СКА Ростов",
-                form: 84,
-                morale: 76,
-                energy: 65,
+                name: "",
+                age: 16,
+                club: "",
+                form: 75,
+                morale: 70,
+                energy: 100,
                 lifestyle: 50,
-                physical: 82,
-                mental: 78,
-                technique: 85,
-                savings: 100000,
+                physical: 50,
+                mental: 50,
+                technique: 50,
+                stamina: 60,
+                injury_proneness: 30,
+                recovery: 50,
+                composure: 50,
+                decision: 50,
+                leadership: 30,
+                willpower: 60,
+                savings: 50000,
                 coach_relationship: 50,
                 team_relationship: 75,
-                fan_reputation: 4.2,
-                dressing_room_reputation: 4.8,
-                media_reputation: 4.0,
+                fan_reputation: 3.0,
+                dressing_room_reputation: 3.0,
+                media_reputation: 3.0,
                 injury: null,
                 appearance: {
                     hair_style: "short",
@@ -744,33 +878,115 @@
                 inventory: [],
                 matchEvents: []
             },
-            shopItems: [
-                {id: 1, name: "Бутсы премиум", price: 50000, effect: "+2 к технике"},
-                {id: 2, name: "Тренировочный костюм", price: 25000, effect: "+1 к морали"},
-                {id: 3, name: "Протеиновые добавки", price: 15000, effect: "+5 энергии"},
-                {id: 4, name: "Частный тренер", price: 100000, effect: "+3 к физике"},
-                {id: 5, name: "Психолог", price: 75000, effect: "+5 к менталитету"},
-                {id: 6, name: "Массажное кресло", price: 50000, effect: "+10 к восстановлению"}
-            ]
+            selectedOrigin: null
         };
 
         // Дни недели
         const daysOfWeek = ['ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ', 'ВС'];
 
+        // Клубы по происхождению
+        const CLUBS = {
+            'premier': ['Манчестер Юнайтед', 'Ливерпуль', 'Челси', 'Арсенал'],
+            'us': ['Лос-Анджелес Гэлакси', 'Нью-Йорк Сити', 'Атланта Юнайтед'],
+            'brazil': ['Фламенго', 'Сантос', 'Палмейрас', 'Коринтианс'],
+            'europe': ['СКА Ростов', 'Динамо Киев', 'Аякс', 'Бенфика']
+        };
+
         // Инициализация при загрузке
         document.addEventListener('DOMContentLoaded', function() {
             loadGameState();
-            updateUI();
-            setupCalendar();
-            setupShop();
-            updateButtonStates();
+            if (!gameState.player.name) {
+                showCreationScreen();
+            } else {
+                showMainMenu();
+            }
         });
+
+        // Показать экран создания
+        function showCreationScreen() {
+            document.getElementById('creationScreen').classList.remove('hidden');
+            document.getElementById('mainMenu').classList.add('hidden');
+        }
+
+        // Выбор происхождения
+        function selectOrigin(origin) {
+            gameState.selectedOrigin = origin;
+            document.querySelectorAll('.origin-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            
+            document.getElementById('originSelectionSection').classList.add('hidden');
+            document.getElementById('nameInputSection').classList.remove('hidden');
+        }
+
+        // Вернуться к выбору происхождения
+        function showOriginSelection() {
+            document.getElementById('nameInputSection').classList.add('hidden');
+            document.getElementById('originSelectionSection').classList.remove('hidden');
+        }
+
+        // Подтверждение имени
+        function confirmName() {
+            const name = document.getElementById('playerNameInput').value.trim();
+            if (name.length < 2) {
+                showNotification('❌ Введите имя (минимум 2 символа)');
+                return;
+            }
+
+            createPlayer(name, gameState.selectedOrigin);
+        }
+
+        // Создание игрока
+        function createPlayer(name, origin) {
+            gameState.player.name = name;
+            
+            // Настройка параметров в зависимости от происхождения
+            switch(origin) {
+                case 'premier':
+                    gameState.player.club = CLUBS.premier[Math.floor(Math.random() * CLUBS.premier.length)];
+                    gameState.player.technique += 10;
+                    gameState.player.mental += 5;
+                    gameState.player.salary = 15000;
+                    break;
+                case 'us':
+                    gameState.player.club = CLUBS.us[Math.floor(Math.random() * CLUBS.us.length)];
+                    gameState.player.physical += 10;
+                    gameState.player.stamina += 5;
+                    gameState.player.salary = 8000;
+                    break;
+                case 'brazil':
+                    gameState.player.club = CLUBS.brazil[Math.floor(Math.random() * CLUBS.brazil.length)];
+                    gameState.player.technique += 15;
+                    gameState.player.composure += 5;
+                    gameState.player.salary = 10000;
+                    break;
+                case 'europe':
+                    gameState.player.club = CLUBS.europe[Math.floor(Math.random() * CLUBS.europe.length)];
+                    gameState.player.mental += 10;
+                    gameState.player.decision += 5;
+                    gameState.player.salary = 12000;
+                    break;
+            }
+
+            showNotification(`✅ Игрок создан! Добро пожаловать в ${gameState.player.club}`);
+            saveGameState();
+            showMainMenu();
+        }
+
+        // Показать главное меню
+        function showMainMenu() {
+            document.getElementById('creationScreen').classList.add('hidden');
+            document.getElementById('mainMenu').classList.remove('hidden');
+            updateUI();
+        }
 
         // Загрузка состояния игры
         function loadGameState() {
             const saved = localStorage.getItem('footballCareerGame');
             if (saved) {
-                gameState = JSON.parse(saved);
+                const parsed = JSON.parse(saved);
+                gameState = {...gameState, ...parsed};
             }
         }
 
@@ -817,9 +1033,9 @@
             document.getElementById('teamRelationship').textContent = gameState.player.team_relationship;
 
             // Обновление репутации
-            document.getElementById('fanReputation').textContent = gameState.player.fan_reputation;
-            document.getElementById('dressingReputation').textContent = gameState.player.dressing_room_reputation;
-            document.getElementById('mediaReputation').textContent = gameState.player.media_reputation;
+            document.getElementById('fanReputation').textContent = gameState.player.fan_reputation.toFixed(1);
+            document.getElementById('dressingReputation').textContent = gameState.player.dressing_room_reputation.toFixed(1);
+            document.getElementById('mediaReputation').textContent = gameState.player.media_reputation.toFixed(1);
 
             // Обновление травмы
             const injuryWarning = document.getElementById('injuryWarning');
@@ -847,6 +1063,7 @@
             const trainingBtn = document.getElementById('trainingBtn');
             const restBtn = document.getElementById('restBtn');
             const matchBtn = document.getElementById('matchBtn');
+            const advanceWeekBtn = document.getElementById('advanceWeekBtn');
             
             // Блокировка тренировки при недостатке энергии или травме
             trainingBtn.disabled = gameState.player.energy <= 0 || gameState.player.injury;
@@ -856,6 +1073,9 @@
             
             // Блокировка матча при травме
             matchBtn.disabled = gameState.player.injury;
+
+            // Блокировка кнопки перехода недели если есть неиспользованные действия
+            advanceWeekBtn.disabled = !canAdvanceWeek();
 
             // Блокировка кнопок тренировок
             document.getElementById('trainPhysical').disabled = gameState.player.energy < 15 || gameState.player.injury;
@@ -876,6 +1096,11 @@
             document.getElementById('matchPass').disabled = gameState.player.energy < 2;
             document.getElementById('matchDribble').disabled = gameState.player.energy < 3;
             document.getElementById('matchShoot').disabled = gameState.player.energy < 4;
+        }
+
+        // Проверка возможности перехода на следующую неделю
+        function canAdvanceWeek() {
+            return gameState.day === 6; // Можно переходить только в последний день недели
         }
 
         // Настройка календаря
@@ -924,11 +1149,18 @@
                 setupCalendar();
             } else if (screenName === 'shop') {
                 setupShop();
+            } else if (screenName === 'match') {
+                updateMatchEvents();
             }
         }
 
         // Переход на следующую неделю
         function advanceWeek() {
+            if (!canAdvanceWeek()) {
+                showNotification('❌ Можно переходить только в последний день недели');
+                return;
+            }
+
             gameState.week++;
             gameState.day = 0;
             gameState.dailyRestUsed = false;
@@ -937,10 +1169,13 @@
             gameState.player.energy = Math.min(100, gameState.player.energy + 30);
             gameState.player.morale = Math.min(100, gameState.player.morale + 15);
             
+            // Зарплата
+            gameState.player.savings += gameState.player.salary;
+            
             // Симуляция матча
             simulateWeeklyMatch();
             
-            showNotification('🔄 Новая неделя! +30 энергии, +15 морали');
+            showNotification(`🔄 Неделя ${gameState.week}! +30 энергии, +15 морали, +€${gameState.player.salary.toLocaleString()} зарплаты`);
             updateUI();
         }
 
@@ -956,6 +1191,17 @@
             gameState.player.morale = Math.min(100, gameState.player.morale + 8);
             
             showNotification('⚽ Сыгран матч! +5 формы, +8 морали');
+        }
+
+        // Генерация травмы
+        function generateInjury() {
+            const injuryChance = gameState.player.injury_proneness / 200;
+            if (Math.random() < injuryChance) {
+                const severity = Math.random() < 0.7 ? 'light' : Math.random() < 0.9 ? 'medium' : 'severe';
+                const injuries = INJURY_DATABASE[severity];
+                return injuries[Math.floor(Math.random() * injuries.length)];
+            }
+            return null;
         }
 
         // Выполнить тренировку
@@ -1008,16 +1254,11 @@
             gameState.player.energy = Math.max(0, gameState.player.energy - energyCost);
             message += `, -${energyCost} энергии`;
 
-            // Риск травмы (5% шанс)
-            if (Math.random() < 0.05) {
-                const injuries = [
-                    { name: "Растяжение связок голеностопа", days: 14 },
-                    { name: "Ушиб мышцы бедра", days: 7 },
-                    { name: "Сотрясение мозга", days: 10 }
-                ];
-                gameState.player.injury = injuries[Math.floor(Math.random() * injuries.length)];
-                gameState.player.injury.days = gameState.player.injury.days;
-                message += `\n⚠️ ТРАВМА! ${gameState.player.injury.name}`;
+            // Риск травмы
+            const injury = generateInjury();
+            if (injury) {
+                gameState.player.injury = injury;
+                message += `\n⚠️ ТРАВМА! ${injury.name} - ${injury.days} дней`;
             }
 
             // Переход на следующий день
@@ -1216,7 +1457,7 @@
             const shopContainer = document.getElementById('shopItems');
             shopContainer.innerHTML = '';
             
-            gameState.shopItems.forEach(item => {
+            SHOP_ITEMS.forEach(item => {
                 const itemElement = document.createElement('div');
                 itemElement.className = 'shop-item';
                 itemElement.onclick = () => buyItem(item.id);
@@ -1242,7 +1483,7 @@
 
         // Покупка предмета
         function buyItem(itemId) {
-            const item = gameState.shopItems.find(x => x.id === itemId);
+            const item = SHOP_ITEMS.find(x => x.id === itemId);
             if (!item) return;
             
             if (gameState.player.savings < item.price) {
@@ -1276,6 +1517,10 @@
                 gameState.player.technique = Math.min(99, gameState.player.technique + 2);
                 effectMessage += '+2 к технике\n';
             }
+            if (item.effect.includes('восстановлению')) {
+                gameState.player.recovery = Math.min(99, gameState.player.recovery + 10);
+                effectMessage += '+10 к восстановлению\n';
+            }
             
             effectMessage += `Баланс: €${gameState.player.savings.toLocaleString()}`;
             
@@ -1300,13 +1545,7 @@
         // Переход на следующий день
         function advanceDay() {
             gameState.day++;
-            if (gameState.day >= 7) {
-                gameState.day = 0;
-                gameState.week++;
-                // Обработка событий недели
-                handleWeekEvents();
-            }
-
+            
             // Восстановление при травме
             if (gameState.player.injury) {
                 gameState.player.injury.days--;
@@ -1315,15 +1554,8 @@
                     showNotification('✅ Травма вылечена!');
                 }
             }
-        }
-
-        // Обработка событий недели
-        function handleWeekEvents() {
-            // Восстановление в начале недели
-            gameState.player.energy = Math.min(100, gameState.player.energy + 20);
-            gameState.player.morale = Math.min(100, gameState.player.morale + 10);
-
-            showNotification('🔄 Началась новая неделя! +20 энергии, +10 морали');
+            
+            updateUI();
         }
 
         // Показать уведомление
