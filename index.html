@@ -95,8 +95,33 @@
             opacity: 0.8;
         }
 
+        .lifestyle-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .lifestyle-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff4444, #ff9800, #4CAF50);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+        }
+
         .injury-warning {
             background: #ff4444;
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+
+        .restriction-info {
+            background: #ff9800;
             color: white;
             padding: 10px;
             border-radius: 8px;
@@ -131,6 +156,16 @@
             transform: translateY(0);
         }
 
+        .menu-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .menu-button:disabled:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: none;
+        }
+
         .button-icon {
             font-size: 24px;
             margin-bottom: 8px;
@@ -141,7 +176,155 @@
             font-weight: 500;
         }
 
-        .calendar {
+        .advance-week-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 12px;
+            padding: 15px;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .advance-week-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+
+        .match-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .match-action-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .match-action-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .match-action-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .shop-item {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .shop-item:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .shop-item:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .shop-item-name {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .shop-item-price {
+            color: #4CAF50;
+            font-size: 14px;
+        }
+
+        .shop-item-effect {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+
+        .customization-option {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .customization-option:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .customization-option.selected {
+            background: rgba(76, 175, 80, 0.3);
+            border-color: #4CAF50;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .energy-low { background: #ff4444; }
+        .energy-medium { background: #ff9800; }
+        .energy-high { background: #4CAF50; }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #333;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .notification.show {
+            opacity: 1;
+        }
+
+        .back-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .training-options, .calendar, .life-options {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 20px;
@@ -149,11 +332,44 @@
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        .calendar-header {
+        .training-header, .calendar-header, .life-header {
             font-size: 18px;
             font-weight: 600;
             margin-bottom: 15px;
             text-align: center;
+        }
+
+        .training-grid, .life-grid {
+            display: grid;
+            gap: 10px;
+        }
+
+        .training-button, .life-button {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .training-button:hover, .life-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .training-button:disabled, .life-button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .training-type, .life-type {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .training-desc, .life-desc {
+            font-size: 12px;
+            opacity: 0.8;
         }
 
         .calendar-grid {
@@ -175,108 +391,6 @@
             background: rgba(76, 175, 80, 0.3);
             border: 1px solid #4CAF50;
         }
-
-        .training-options {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 20px;
-            margin-bottom: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .training-header {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-
-        .training-grid {
-            display: grid;
-            gap: 10px;
-        }
-
-        .training-button {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .training-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .training-type {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .training-desc {
-            font-size: 12px;
-            opacity: 0.8;
-        }
-
-        .back-button {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 10px;
-            padding: 15px;
-            text-align: center;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        .progress-bar {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 3px;
-            margin-top: 5px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: #4CAF50;
-            border-radius: 3px;
-            transition: width 0.3s ease;
-        }
-
-        .energy-low {
-            background: #ff4444;
-        }
-
-        .energy-medium {
-            background: #ff9800;
-        }
-
-        .energy-high {
-            background: #4CAF50;
-        }
-
-        .notification {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #333;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 8px;
-            z-index: 1000;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .notification.show {
-            opacity: 1;
-        }
     </style>
 </head>
 <body>
@@ -287,6 +401,10 @@
                 <div class="week-info">Неделя: <span id="currentWeek">1</span> | Сезон: <span id="currentSeason">2024</span></div>
                 <div class="auto-save">Автосохранение: ● Активно</div>
             </div>
+
+            <button class="advance-week-btn" onclick="advanceWeek()">
+                ⏭️ Перейти на следующую неделю
+            </button>
 
             <div class="player-card">
                 <div class="player-header">
@@ -315,8 +433,19 @@
                     </div>
                 </div>
 
+                <div style="margin-top: 15px;">
+                    <div style="font-size: 12px; margin-bottom: 5px; opacity: 0.8;">Образ жизни:</div>
+                    <div class="lifestyle-bar">
+                        <div class="lifestyle-fill" id="lifestyleBar" style="width: 50%"></div>
+                    </div>
+                </div>
+
                 <div id="injuryWarning" class="injury-warning hidden">
                     ⚠️ ТРАВМА: Растяжение связок - 7 дней
+                </div>
+
+                <div id="restrictionInfo" class="restriction-info hidden">
+                    💤 Отдых использован сегодня
                 </div>
             </div>
 
@@ -329,11 +458,11 @@
                     <div class="button-icon">📅</div>
                     <div class="button-text">Календарь</div>
                 </div>
-                <div class="menu-button" onclick="showScreen('training')">
+                <div class="menu-button" id="trainingBtn" onclick="showScreen('training')">
                     <div class="button-icon">🏋️</div>
                     <div class="button-text">Тренировка</div>
                 </div>
-                <div class="menu-button" onclick="performAction('rest')">
+                <div class="menu-button" id="restBtn" onclick="performAction('rest')">
                     <div class="button-icon">💤</div>
                     <div class="button-text">Отдых</div>
                 </div>
@@ -341,9 +470,17 @@
                     <div class="button-icon">🎯</div>
                     <div class="button-text">Жизнь</div>
                 </div>
-                <div class="menu-button" onclick="showScreen('team')">
-                    <div class="button-icon">👥</div>
-                    <div class="button-text">Команда</div>
+                <div class="menu-button" id="matchBtn" onclick="showScreen('match')">
+                    <div class="button-icon">⚽</div>
+                    <div class="button-text">Матч</div>
+                </div>
+                <div class="menu-button" onclick="showScreen('shop')">
+                    <div class="button-icon">🛒</div>
+                    <div class="button-text">Магазин</div>
+                </div>
+                <div class="menu-button" onclick="showScreen('customize')">
+                    <div class="button-icon">👤</div>
+                    <div class="button-text">Внешность</div>
                 </div>
             </div>
         </div>
@@ -377,17 +514,25 @@
                 <div style="margin-bottom: 20px;">
                     <div style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Финансы:</div>
                     <div class="stat-item">
-                        <div class="stat-value">€120,000</div>
-                        <div class="stat-label">Зарплата/мес</div>
+                        <div class="stat-value">€<span id="detailedSavings">120,000</span></div>
+                        <div class="stat-label">Накопления</div>
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Отношения:</div>
+                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
+                        <div style="margin-bottom: 8px;">Тренер: <span id="coachRelationship">50</span>/100</div>
+                        <div>Команда: <span id="teamRelationship">75</span>/100</div>
                     </div>
                 </div>
 
                 <div>
                     <div style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">Репутация:</div>
                     <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
-                        <div style="margin-bottom: 8px;">Болельщики: ▪▪▪▪◐ (4.2/5)</div>
-                        <div style="margin-bottom: 8px;">Раздевалка: ▪▪▪▪▪ (4.8/5)</div>
-                        <div>СМИ: ▪▪▪▪◯ (4.0/5)</div>
+                        <div style="margin-bottom: 8px;">Болельщики: <span id="fanReputation">4.2</span>/5</div>
+                        <div style="margin-bottom: 8px;">Раздевалка: <span id="dressingReputation">4.8</span>/5</div>
+                        <div>СМИ: <span id="mediaReputation">4.0</span>/5</div>
                     </div>
                 </div>
             </div>
@@ -414,19 +559,19 @@
             <div class="training-options">
                 <div class="training-header">Выбор тренировки</div>
                 <div class="training-grid">
-                    <div class="training-button" onclick="performTraining('physical')">
+                    <div class="training-button" id="trainPhysical" onclick="performTraining('physical')">
                         <div class="training-type">💪 Физ. подготовка</div>
                         <div class="training-desc">+2-3 к выносливости, -15 энергии</div>
                     </div>
-                    <div class="training-button" onclick="performTraining('technical')">
+                    <div class="training-button" id="trainTechnical" onclick="performTraining('technical')">
                         <div class="training-type">🔧 Техника</div>
                         <div class="training-desc">+2-3 к технике, -12 энергии</div>
                     </div>
-                    <div class="training-button" onclick="performTraining('tactical')">
+                    <div class="training-button" id="trainTactical" onclick="performTraining('tactical')">
                         <div class="training-type">🧠 Тактика</div>
                         <div class="training-desc">+1-2 к решению, -10 энергии</div>
                     </div>
-                    <div class="training-button" onclick="performTraining('mental')">
+                    <div class="training-button" id="trainMental" onclick="performTraining('mental')">
                         <div class="training-type">😌 Психология</div>
                         <div class="training-desc">+2-5 к морали, -8 энергии</div>
                     </div>
@@ -437,56 +582,127 @@
 
         <!-- Экран жизни -->
         <div id="lifeScreen" class="hidden">
-            <div class="training-options">
-                <div class="training-header">Жизнь вне поля</div>
-                <div class="training-grid">
-                    <div class="training-button" onclick="performAction('family')">
-                        <div class="training-type">👨‍👩‍👧‍👦 Семья</div>
-                        <div class="training-desc">+5-10 морали, -5 энергии</div>
+            <div class="life-options">
+                <div class="life-header">Жизнь вне поля</div>
+                <div class="life-grid">
+                    <div class="life-button" id="lifeFamily" onclick="performLifeAction('family')">
+                        <div class="life-type">👨‍👩‍👧‍👦 Семья</div>
+                        <div class="life-desc">+5-10 морали, -5 энергии, +2 к образу жизни</div>
                     </div>
-                    <div class="training-button" onclick="performAction('media')">
-                        <div class="training-type">📺 СМИ</div>
-                        <div class="training-desc">+0.1-0.3 репутации, -8 энергии</div>
+                    <div class="life-button" id="lifeMedia" onclick="performLifeAction('media')">
+                        <div class="life-type">📺 СМИ</div>
+                        <div class="life-desc">+0.1-0.3 репутации, -8 энергии, +1 к образу жизни</div>
                     </div>
-                    <div class="training-button" onclick="performAction('social')">
-                        <div class="training-type">📱 Соцсети</div>
-                        <div class="training-desc">+0.1-0.2 репутации, -6 энергии</div>
+                    <div class="life-button" id="lifeSocial" onclick="performLifeAction('social')">
+                        <div class="life-type">📱 Соцсети</div>
+                        <div class="life-desc">+0.1-0.2 репутации, -6 энергии, +3 к образу жизни</div>
                     </div>
-                    <div class="training-button" onclick="performAction('business')">
-                        <div class="training-type">💼 Бизнес</div>
-                        <div class="training-desc">Инвестиции и прибыль</div>
+                    <div class="life-button" id="lifeBusiness" onclick="performLifeAction('business')">
+                        <div class="life-type">💼 Бизнес</div>
+                        <div class="life-desc">+5,000-15,000 дохода, -12 энергии, +5 к образу жизни</div>
+                    </div>
+                    <div class="life-button" id="lifeHobby" onclick="performLifeAction('hobby')">
+                        <div class="life-type">🎨 Хобби</div>
+                        <div class="life-desc">+3-8 морали, -4 энергии, +4 к образу жизни</div>
                     </div>
                 </div>
             </div>
             <div class="back-button" onclick="showScreen('main')">Назад</div>
         </div>
 
-        <!-- Экран команды -->
-        <div id="teamScreen" class="hidden">
+        <!-- Экран матча -->
+        <div id="matchScreen" class="hidden">
             <div class="player-card">
-                <div style="font-size: 18px; font-weight: 600; margin-bottom: 15px; text-align: center;">
-                    Команда: <span id="teamName">СКА Ростов</span>
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 20px; font-weight: 600;">⚽ Текущий матч</div>
+                    <div style="opacity: 0.8;" id="matchTeams">СКА Ростов vs Зенит</div>
                 </div>
-                
-                <div style="margin-bottom: 20px;">
-                    <div style="font-size: 14px; margin-bottom: 10px; opacity: 0.9;">Состав и статистика:</div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
-                        <div style="margin-bottom: 8px;">• Ваша позиция: Атакующий полузащитник</div>
-                        <div style="margin-bottom: 8px;">• Репутация в раздевалке: 4.8/5</div>
-                        <div style="margin-bottom: 8px;">• Отношения с тренером: 4.2/5</div>
+
+                <div class="match-actions">
+                    <div class="match-action-btn" id="matchAttack" onclick="performMatchAction('attack')">
+                        <div>⚡ Атака</div>
+                        <div style="font-size: 12px; opacity: 0.8;">-3 энергии</div>
+                    </div>
+                    <div class="match-action-btn" id="matchDefend" onclick="performMatchAction('defend')">
+                        <div>🛡️ Оборона</div>
+                        <div style="font-size: 12px; opacity: 0.8;">-2 энергии</div>
+                    </div>
+                    <div class="match-action-btn" id="matchPass" onclick="performMatchAction('pass')">
+                        <div>🎯 Пасс</div>
+                        <div style="font-size: 12px; opacity: 0.8;">-2 энергии</div>
+                    </div>
+                    <div class="match-action-btn" id="matchDribble" onclick="performMatchAction('dribble')">
+                        <div>🌀 Дриблинг</div>
+                        <div style="font-size: 12px; opacity: 0.8;">-3 энергии</div>
+                    </div>
+                    <div class="match-action-btn" id="matchShoot" onclick="performMatchAction('shoot')">
+                        <div>💥 Удар</div>
+                        <div style="font-size: 12px; opacity: 0.8;">-4 энергии</div>
                     </div>
                 </div>
 
-                <div>
-                    <div style="font-size: 14px; margin-bottom: 10px; opacity: 0.9;">Ближайшие матчи:</div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 15px; border-radius: 8px;">
-                        <div style="margin-bottom: 8px;">• Чемпионат: СКА Ростов vs Зенит</div>
-                        <div>• Кубок: СКА Ростов vs Спартак</div>
-                    </div>
+                <div id="matchEvents" style="max-height: 200px; overflow-y: auto; margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 8px;">
+                    <div style="text-align: center; opacity: 0.7;">События матча появятся здесь</div>
+                </div>
+            </div>
+            <div class="back-button" onclick="showScreen('main')">Завершить матч</div>
+        </div>
+
+        <!-- Экран магазина -->
+        <div id="shopScreen" class="hidden">
+            <div class="player-card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 20px; font-weight: 600;">🛒 Магазин</div>
+                    <div style="opacity: 0.8;">Баланс: €<span id="shopBalance">0</span></div>
+                    <div style="font-size: 14px; opacity: 0.7; margin-top: 5px;">Инвентарь: <span id="inventoryList">пусто</span></div>
+                </div>
+
+                <div id="shopItems">
+                    <!-- Товары будут добавляться динамически -->
                 </div>
             </div>
             <div class="back-button" onclick="showScreen('main')">Назад</div>
         </div>
+
+        <!-- Экран кастомизации -->
+        <div id="customizeScreen" class="hidden">
+            <div class="player-card">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <div style="font-size: 20px; font-weight: 600;">👤 Кастомизация</div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 16px; margin-bottom: 10px;">Прическа:</div>
+                    <div class="customization-option selected" onclick="selectAppearance('hair_style', 'short')">
+                        💇 Короткая стрижка
+                    </div>
+                    <div class="customization-option" onclick="selectAppearance('hair_style', 'medium')">
+                        💇 Средняя длина
+                    </div>
+                    <div class="customization-option" onclick="selectAppearance('hair_style', 'long')">
+                        💇 Длинные волосы
+                    </div>
+                </div>
+
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 16px; margin-bottom: 10px;">Цвет волос:</div>
+                    <div class="customization-option selected" onclick="selectAppearance('hair_color', 'brown')">
+                        🟤 Коричневый
+                    </div>
+                    <div class="customization-option" onclick="selectAppearance('hair_color', 'blonde')">
+                        🟡 Белокурый
+                    </div>
+                    <div class="customization-option" onclick="selectAppearance('hair_color', 'black')">
+                        ⚫ Черный
+                    </div>
+                    <div class="customization-option" onclick="selectAppearance('hair_color', 'red')">
+                        🔴 Рыжий
+                    </div>
+                </div>
+            </div>
+            <div class="back-button" onclick="showScreen('main')">Сохранить и выйти</div>
+        </div>
+
     </div>
 
     <div id="notification" class="notification"></div>
@@ -497,11 +713,12 @@
         tg.expand();
         tg.enableClosingConfirmation();
 
-        // Состояние игры
+        // Расширенное состояние игры
         let gameState = {
             week: 1,
             season: 2024,
-            day: 2, // 0-6 (пн-вс)
+            day: 2,
+            dailyRestUsed: false,
             player: {
                 name: "Алексей Петров",
                 age: 19,
@@ -509,11 +726,32 @@
                 form: 84,
                 morale: 76,
                 energy: 65,
+                lifestyle: 50,
                 physical: 82,
                 mental: 78,
                 technique: 85,
-                injury: null
-            }
+                savings: 100000,
+                coach_relationship: 50,
+                team_relationship: 75,
+                fan_reputation: 4.2,
+                dressing_room_reputation: 4.8,
+                media_reputation: 4.0,
+                injury: null,
+                appearance: {
+                    hair_style: "short",
+                    hair_color: "brown"
+                },
+                inventory: [],
+                matchEvents: []
+            },
+            shopItems: [
+                {id: 1, name: "Бутсы премиум", price: 50000, effect: "+2 к технике"},
+                {id: 2, name: "Тренировочный костюм", price: 25000, effect: "+1 к морали"},
+                {id: 3, name: "Протеиновые добавки", price: 15000, effect: "+5 энергии"},
+                {id: 4, name: "Частный тренер", price: 100000, effect: "+3 к физике"},
+                {id: 5, name: "Психолог", price: 75000, effect: "+5 к менталитету"},
+                {id: 6, name: "Массажное кресло", price: 50000, effect: "+10 к восстановлению"}
+            ]
         };
 
         // Дни недели
@@ -524,6 +762,8 @@
             loadGameState();
             updateUI();
             setupCalendar();
+            setupShop();
+            updateButtonStates();
         });
 
         // Загрузка состояния игры
@@ -537,7 +777,6 @@
         // Сохранение состояния игры
         function saveGameState() {
             localStorage.setItem('footballCareerGame', JSON.stringify(gameState));
-            showNotification('Игра сохранена');
         }
 
         // Обновление интерфейса
@@ -562,10 +801,25 @@
                 (gameState.player.energy > 70 ? 'energy-high' : 
                  gameState.player.energy > 30 ? 'energy-medium' : 'energy-low');
 
+            // Обновление шкалы образа жизни
+            document.getElementById('lifestyleBar').style.width = gameState.player.lifestyle + '%';
+
             // Обновление атрибутов
             document.getElementById('attrPhysical').textContent = gameState.player.physical;
             document.getElementById('attrMental').textContent = gameState.player.mental;
             document.getElementById('attrTechnique').textContent = gameState.player.technique;
+
+            // Обновление финансов
+            document.getElementById('detailedSavings').textContent = gameState.player.savings.toLocaleString();
+
+            // Обновление отношений
+            document.getElementById('coachRelationship').textContent = gameState.player.coach_relationship;
+            document.getElementById('teamRelationship').textContent = gameState.player.team_relationship;
+
+            // Обновление репутации
+            document.getElementById('fanReputation').textContent = gameState.player.fan_reputation;
+            document.getElementById('dressingReputation').textContent = gameState.player.dressing_room_reputation;
+            document.getElementById('mediaReputation').textContent = gameState.player.media_reputation;
 
             // Обновление травмы
             const injuryWarning = document.getElementById('injuryWarning');
@@ -576,8 +830,52 @@
                 injuryWarning.classList.add('hidden');
             }
 
-            // Автосохранение
+            // Обновление ограничений
+            const restrictionInfo = document.getElementById('restrictionInfo');
+            if (gameState.dailyRestUsed) {
+                restrictionInfo.classList.remove('hidden');
+            } else {
+                restrictionInfo.classList.add('hidden');
+            }
+
+            updateButtonStates();
             saveGameState();
+        }
+
+        // Обновление состояния кнопок
+        function updateButtonStates() {
+            const trainingBtn = document.getElementById('trainingBtn');
+            const restBtn = document.getElementById('restBtn');
+            const matchBtn = document.getElementById('matchBtn');
+            
+            // Блокировка тренировки при недостатке энергии или травме
+            trainingBtn.disabled = gameState.player.energy <= 0 || gameState.player.injury;
+            
+            // Блокировка отдыха если уже использован
+            restBtn.disabled = gameState.dailyRestUsed;
+            
+            // Блокировка матча при травме
+            matchBtn.disabled = gameState.player.injury;
+
+            // Блокировка кнопок тренировок
+            document.getElementById('trainPhysical').disabled = gameState.player.energy < 15 || gameState.player.injury;
+            document.getElementById('trainTechnical').disabled = gameState.player.energy < 12 || gameState.player.injury;
+            document.getElementById('trainTactical').disabled = gameState.player.energy < 10 || gameState.player.injury;
+            document.getElementById('trainMental').disabled = gameState.player.energy < 8 || gameState.player.injury;
+
+            // Блокировка кнопок действий в жизни
+            document.getElementById('lifeFamily').disabled = gameState.player.energy < 5;
+            document.getElementById('lifeMedia').disabled = gameState.player.energy < 8;
+            document.getElementById('lifeSocial').disabled = gameState.player.energy < 6;
+            document.getElementById('lifeBusiness').disabled = gameState.player.energy < 12;
+            document.getElementById('lifeHobby').disabled = gameState.player.energy < 4;
+
+            // Блокировка кнопок в матче
+            document.getElementById('matchAttack').disabled = gameState.player.energy < 3;
+            document.getElementById('matchDefend').disabled = gameState.player.energy < 2;
+            document.getElementById('matchPass').disabled = gameState.player.energy < 2;
+            document.getElementById('matchDribble').disabled = gameState.player.energy < 3;
+            document.getElementById('matchShoot').disabled = gameState.player.energy < 4;
         }
 
         // Настройка календаря
@@ -624,7 +922,40 @@
             // Обновить данные для конкретного экрана
             if (screenName === 'calendar') {
                 setupCalendar();
+            } else if (screenName === 'shop') {
+                setupShop();
             }
+        }
+
+        // Переход на следующую неделю
+        function advanceWeek() {
+            gameState.week++;
+            gameState.day = 0;
+            gameState.dailyRestUsed = false;
+            
+            // Восстановление
+            gameState.player.energy = Math.min(100, gameState.player.energy + 30);
+            gameState.player.morale = Math.min(100, gameState.player.morale + 15);
+            
+            // Симуляция матча
+            simulateWeeklyMatch();
+            
+            showNotification('🔄 Новая неделя! +30 энергии, +15 морали');
+            updateUI();
+        }
+
+        // Симуляция еженедельного матча
+        function simulateWeeklyMatch() {
+            if (gameState.player.injury) {
+                showNotification('❌ Пропуск матча из-за травмы');
+                return;
+            }
+            
+            // Игрок получает опыт за матч
+            gameState.player.form = Math.min(100, gameState.player.form + 5);
+            gameState.player.morale = Math.min(100, gameState.player.morale + 8);
+            
+            showNotification('⚽ Сыгран матч! +5 формы, +8 морали');
         }
 
         // Выполнить тренировку
@@ -641,30 +972,34 @@
 
             let message = '';
             let energyCost = 0;
+            let attributeGain = 0;
 
             switch(type) {
                 case 'physical':
                     energyCost = 15;
-                    const staminaGain = Math.floor(Math.random() * 2) + 2;
+                    attributeGain = Math.floor(Math.random() * 2) + 2;
                     gameState.player.physical = Math.min(99, gameState.player.physical + 1);
-                    message = `💪 Тренировка физ. подготовки: +${staminaGain} к выносливости`;
+                    gameState.player.stamina = Math.min(99, gameState.player.stamina + attributeGain);
+                    message = `💪 Тренировка физ. подготовки: +${attributeGain} к выносливости`;
                     break;
                 case 'technical':
                     energyCost = 12;
-                    const techGain = Math.floor(Math.random() * 2) + 2;
-                    gameState.player.technique = Math.min(99, gameState.player.technique + techGain);
-                    message = `🔧 Тренировка техники: +${techGain} к технике`;
+                    attributeGain = Math.floor(Math.random() * 2) + 2;
+                    gameState.player.technique = Math.min(99, gameState.player.technique + attributeGain);
+                    message = `🔧 Тренировка техники: +${attributeGain} к технике`;
                     break;
                 case 'tactical':
                     energyCost = 10;
-                    const decisionGain = Math.floor(Math.random() * 2) + 1;
+                    attributeGain = Math.floor(Math.random() * 2) + 1;
                     gameState.player.mental = Math.min(99, gameState.player.mental + 1);
-                    message = `🧠 Тактическая тренировка: +${decisionGain} к решению`;
+                    gameState.player.decision = Math.min(99, gameState.player.decision + attributeGain);
+                    message = `🧠 Тактическая тренировка: +${attributeGain} к решению`;
                     break;
                 case 'mental':
                     energyCost = 8;
                     const moraleGain = Math.floor(Math.random() * 4) + 2;
                     gameState.player.morale = Math.min(100, gameState.player.morale + moraleGain);
+                    gameState.player.willpower = Math.min(99, gameState.player.willpower + 1);
                     message = `😌 Психологическая тренировка: +${moraleGain} к морали`;
                     break;
             }
@@ -676,11 +1011,12 @@
             // Риск травмы (5% шанс)
             if (Math.random() < 0.05) {
                 const injuries = [
-                    { name: "Растяжение связок", days: 7 },
-                    { name: "Ушиб мышцы", days: 3 },
-                    { name: "Перегрузка", days: 2 }
+                    { name: "Растяжение связок голеностопа", days: 14 },
+                    { name: "Ушиб мышцы бедра", days: 7 },
+                    { name: "Сотрясение мозга", days: 10 }
                 ];
                 gameState.player.injury = injuries[Math.floor(Math.random() * injuries.length)];
+                gameState.player.injury.days = gameState.player.injury.days;
                 message += `\n⚠️ ТРАВМА! ${gameState.player.injury.name}`;
             }
 
@@ -697,27 +1033,16 @@
 
             switch(action) {
                 case 'rest':
+                    if (gameState.dailyRestUsed) {
+                        showNotification('❌ Отдых можно использовать только раз в день');
+                        return;
+                    }
+                    
                     const energyGain = Math.floor(Math.random() * 11) + 20;
                     gameState.player.energy = Math.min(100, gameState.player.energy + energyGain);
-                    message = `💤 Отдых: +${energyGain} энергии`;
-                    break;
-                case 'family':
-                    if (gameState.player.energy < 5) {
-                        showNotification('❌ Недостаточно энергии');
-                        return;
-                    }
-                    const moraleGain = Math.floor(Math.random() * 6) + 5;
-                    gameState.player.morale = Math.min(100, gameState.player.morale + moraleGain);
-                    gameState.player.energy -= 5;
-                    message = `👨‍👩‍👧‍👦 Время с семьёй: +${moraleGain} морали, -5 энергии`;
-                    break;
-                case 'media':
-                    if (gameState.player.energy < 8) {
-                        showNotification('❌ Недостаточно энергии');
-                        return;
-                    }
-                    gameState.player.energy -= 8;
-                    message = `📺 Интервью: +0.2 репутации в СМИ, -8 энергии`;
+                    gameState.player.morale = Math.min(100, gameState.player.morale + 5);
+                    gameState.dailyRestUsed = true;
+                    message = `💤 Отдых: +${energyGain} энергии, +5 морали`;
                     break;
             }
 
@@ -726,6 +1051,250 @@
 
             showNotification(message);
             updateUI();
+        }
+
+        // Действие в жизни
+        function performLifeAction(action) {
+            let message = '';
+            let energyCost = 0;
+
+            switch(action) {
+                case 'family':
+                    energyCost = 5;
+                    if (gameState.player.energy < energyCost) {
+                        showNotification(`❌ Нужно ${energyCost} энергии для этого действия`);
+                        return;
+                    }
+                    const familyMorale = Math.floor(Math.random() * 6) + 5;
+                    gameState.player.morale = Math.min(100, gameState.player.morale + familyMorale);
+                    gameState.player.lifestyle = Math.min(100, gameState.player.lifestyle + 2);
+                    message = `👨‍👩‍👧‍👦 Время с семьёй: +${familyMorale} морали, +2 к образу жизни`;
+                    break;
+
+                case 'media':
+                    energyCost = 8;
+                    if (gameState.player.energy < energyCost) {
+                        showNotification(`❌ Нужно ${energyCost} энергии для этого действия`);
+                        return;
+                    }
+                    const mediaRep = (Math.random() * 0.2 + 0.1).toFixed(1);
+                    gameState.player.media_reputation = Math.min(5.0, gameState.player.media_reputation + parseFloat(mediaRep));
+                    gameState.player.lifestyle = Math.min(100, gameState.player.lifestyle + 1);
+                    message = `📺 Интервью: +${mediaRep} репутации в СМИ, +1 к образу жизни`;
+                    break;
+
+                case 'social':
+                    energyCost = 6;
+                    if (gameState.player.energy < energyCost) {
+                        showNotification(`❌ Нужно ${energyCost} энергии для этого действия`);
+                        return;
+                    }
+                    const socialRep = (Math.random() * 0.1 + 0.1).toFixed(1);
+                    gameState.player.fan_reputation = Math.min(5.0, gameState.player.fan_reputation + parseFloat(socialRep));
+                    gameState.player.lifestyle = Math.min(100, gameState.player.lifestyle + 3);
+                    message = `📱 Соцсети: +${socialRep} репутации у болельщиков, +3 к образу жизни`;
+                    break;
+
+                case 'business':
+                    energyCost = 12;
+                    if (gameState.player.energy < energyCost) {
+                        showNotification(`❌ Нужно ${energyCost} энергии для этого действия`);
+                        return;
+                    }
+                    const businessIncome = Math.floor(Math.random() * 10001) + 5000;
+                    gameState.player.savings += businessIncome;
+                    gameState.player.lifestyle = Math.min(100, gameState.player.lifestyle + 5);
+                    message = `💼 Бизнес: +€${businessIncome.toLocaleString()} дохода, +5 к образу жизни`;
+                    break;
+
+                case 'hobby':
+                    energyCost = 4;
+                    if (gameState.player.energy < energyCost) {
+                        showNotification(`❌ Нужно ${energyCost} энергии для этого действия`);
+                        return;
+                    }
+                    const hobbyMorale = Math.floor(Math.random() * 6) + 3;
+                    gameState.player.morale = Math.min(100, gameState.player.morale + hobbyMorale);
+                    gameState.player.lifestyle = Math.min(100, gameState.player.lifestyle + 4);
+                    message = `🎨 Хобби: +${hobbyMorale} морали, +4 к образу жизни`;
+                    break;
+            }
+
+            // Тратим энергию
+            gameState.player.energy = Math.max(0, gameState.player.energy - energyCost);
+            message += `, -${energyCost} энергии`;
+
+            // Переход на следующий день
+            advanceDay();
+
+            showNotification(message);
+            updateUI();
+        }
+
+        // Действие в матче
+        function performMatchAction(action) {
+            let energyCost = 0;
+            
+            switch(action) {
+                case 'attack': energyCost = 3; break;
+                case 'defend': energyCost = 2; break;
+                case 'pass': energyCost = 2; break;
+                case 'dribble': energyCost = 3; break;
+                case 'shoot': energyCost = 4; break;
+            }
+            
+            if (gameState.player.energy < energyCost) {
+                showNotification(`❌ Нужно ${energyCost} энергии для этого действия`);
+                return;
+            }
+            
+            gameState.player.energy -= energyCost;
+            
+            // Симуляция действия
+            const minute = Math.floor(Math.random() * 90) + 1;
+            const success = Math.random() > 0.4; // 60% шанс успеха
+            
+            let result = '';
+            if (action === 'shoot' && success) {
+                result = '⚽ ГОООЛ!';
+                gameState.player.morale += 10;
+                gameState.player.form += 5;
+            } else if (action === 'shoot' && !success) {
+                result = '❌ Мимо ворот';
+                gameState.player.morale -= 2;
+                gameState.player.form -= 1;
+            } else if (success) {
+                result = '✅ Успешное действие';
+                gameState.player.morale += 3;
+                gameState.player.form += 2;
+            } else {
+                result = '❌ Неудачное действие';
+                gameState.player.morale -= 1;
+                gameState.player.form -= 1;
+            }
+            
+            // Добавляем событие в лог матча
+            const matchEvent = {
+                minute: minute,
+                action: action,
+                result: result,
+                energy: -energyCost
+            };
+            
+            gameState.player.matchEvents.unshift(matchEvent);
+            updateMatchEvents();
+            updateUI();
+            
+            showNotification(`${minute}': ${result} (-${energyCost} энергии)`);
+        }
+
+        // Обновление событий матча
+        function updateMatchEvents() {
+            const eventsContainer = document.getElementById('matchEvents');
+            eventsContainer.innerHTML = '';
+            
+            if (gameState.player.matchEvents.length === 0) {
+                eventsContainer.innerHTML = '<div style="text-align: center; opacity: 0.7;">События матча появятся здесь</div>';
+                return;
+            }
+            
+            gameState.player.matchEvents.slice(0, 5).forEach(event => {
+                const eventElement = document.createElement('div');
+                eventElement.style.padding = '8px';
+                eventElement.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+                eventElement.style.fontSize = '14px';
+                eventElement.innerHTML = `
+                    <div>${event.minute}': ${event.result}</div>
+                    <div style="font-size: 12px; opacity: 0.7;">Энергия: ${event.energy}</div>
+                `;
+                eventsContainer.appendChild(eventElement);
+            });
+        }
+
+        // Настройка магазина
+        function setupShop() {
+            const shopContainer = document.getElementById('shopItems');
+            shopContainer.innerHTML = '';
+            
+            gameState.shopItems.forEach(item => {
+                const itemElement = document.createElement('div');
+                itemElement.className = 'shop-item';
+                itemElement.onclick = () => buyItem(item.id);
+                
+                // Проверяем, хватает ли денег
+                const canAfford = gameState.player.savings >= item.price;
+                if (!canAfford) {
+                    itemElement.style.opacity = '0.5';
+                    itemElement.style.cursor = 'not-allowed';
+                }
+                
+                itemElement.innerHTML = `
+                    <div class="shop-item-name">${item.name}</div>
+                    <div class="shop-item-price">€${item.price.toLocaleString()}</div>
+                    <div class="shop-item-effect">${item.effect}</div>
+                `;
+                shopContainer.appendChild(itemElement);
+            });
+            
+            document.getElementById('shopBalance').textContent = gameState.player.savings.toLocaleString();
+            document.getElementById('inventoryList').textContent = gameState.player.inventory.length > 0 ? gameState.player.inventory.join(', ') : 'пусто';
+        }
+
+        // Покупка предмета
+        function buyItem(itemId) {
+            const item = gameState.shopItems.find(x => x.id === itemId);
+            if (!item) return;
+            
+            if (gameState.player.savings < item.price) {
+                showNotification('❌ Недостаточно денег');
+                return;
+            }
+            
+            gameState.player.savings -= item.price;
+            gameState.player.inventory.push(item.name);
+            
+            // Применяем эффекты предмета
+            let effectMessage = `✅ Куплено: ${item.name}\n`;
+            
+            if (item.effect.includes('энергии')) {
+                gameState.player.energy = Math.min(100, gameState.player.energy + 5);
+                effectMessage += '+5 энергии\n';
+            }
+            if (item.effect.includes('морали')) {
+                gameState.player.morale = Math.min(100, gameState.player.morale + 1);
+                effectMessage += '+1 морали\n';
+            }
+            if (item.effect.includes('физике')) {
+                gameState.player.physical = Math.min(99, gameState.player.physical + 3);
+                effectMessage += '+3 к физике\n';
+            }
+            if (item.effect.includes('менталитету')) {
+                gameState.player.mental = Math.min(99, gameState.player.mental + 5);
+                effectMessage += '+5 к менталитету\n';
+            }
+            if (item.effect.includes('технике')) {
+                gameState.player.technique = Math.min(99, gameState.player.technique + 2);
+                effectMessage += '+2 к технике\n';
+            }
+            
+            effectMessage += `Баланс: €${gameState.player.savings.toLocaleString()}`;
+            
+            showNotification(effectMessage);
+            setupShop();
+            updateUI();
+        }
+
+        // Кастомизация внешности
+        function selectAppearance(type, value) {
+            gameState.player.appearance[type] = value;
+            
+            // Обновляем визуальный выбор
+            document.querySelectorAll('.customization-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+            
+            showNotification(`✅ Внешность обновлена: ${type} -> ${value}`);
         }
 
         // Переход на следующий день
